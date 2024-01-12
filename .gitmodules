@@ -1,0 +1,3 @@
+[submodule "weet-env"]
+	path = weet-env
+	url = https://github.com/2023-BSSM-Hackerthon/weet-env.git
