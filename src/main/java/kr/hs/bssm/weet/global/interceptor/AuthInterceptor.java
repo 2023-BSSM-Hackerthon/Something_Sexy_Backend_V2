@@ -11,12 +11,17 @@ import kr.hs.bssm.weet.global.error.exception.ErrorCode;
 import kr.hs.bssm.weet.global.error.exception.WeetException;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Authentication authentication = ContextHolder.getAuthentication();
+
+        if (handler instanceof ResourceHttpRequestHandler) {
+            return true;
+        }
 
         if (checkLoginRequired(handler)) {
             if (authentication == null) {
