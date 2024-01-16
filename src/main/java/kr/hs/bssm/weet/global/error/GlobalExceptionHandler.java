@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(WeetException.class)
-    public ResponseEntity<ErrorResponse> schoolzoneExceptionHandler(WeetException e) {
+    public ResponseEntity<ErrorResponse> weetExceptionHandler(WeetException e) {
         ErrorCode errorCode = e.getErrorCode();
 
         return ResponseEntity
