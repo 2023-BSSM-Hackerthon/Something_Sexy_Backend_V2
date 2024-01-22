@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
+import static kr.hs.bssm.weet.global.jwt.util.JwtConstant.ACCESS_TOKEN;
+
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter implements Filter {
@@ -22,7 +24,7 @@ public class JwtAuthenticationFilter implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String jwt = jwtUtil.resolveToken(httpServletRequest);
 
-        if (jwt != null) {
+        if ((jwt != null) && (jwtUtil.getTokenType(jwt).equals(ACCESS_TOKEN.getValue()))) {
             TokenInfo tokenInfo = jwtUtil.extractTokenInfo(jwt);
             ContextHolder.setAuthentication(new Authentication(tokenInfo));
         }

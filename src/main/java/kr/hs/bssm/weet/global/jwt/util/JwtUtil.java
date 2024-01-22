@@ -41,4 +41,14 @@ public class JwtUtil {
                 Authority.valueOf(claims.get("authority").toString())
         );
     }
+
+    public String getTokenType(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(jwtProperties.secret())
+                .build()
+                .parseClaimsJws(token)
+                .getHeader()
+                .get("type")
+                .toString();
+    }
 }
