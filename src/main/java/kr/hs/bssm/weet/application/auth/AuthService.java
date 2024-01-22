@@ -30,8 +30,8 @@ public class AuthService {
                 .orElseGet(() -> userService.createUser(resource));
 
         return new LoginResponseDto(
-                jwtProvider.accessToken(user),
-                jwtProvider.refreshToken(user)
+                jwtProvider.accessToken(user.getEmail(), user.getAuthority()),
+                jwtProvider.refreshToken(user.getEmail(), user.getAuthority())
         );
     }
 }

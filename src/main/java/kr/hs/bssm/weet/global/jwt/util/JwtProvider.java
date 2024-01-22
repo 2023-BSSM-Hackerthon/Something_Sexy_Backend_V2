@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import kr.hs.bssm.weet.domain.user.Authority;
-import kr.hs.bssm.weet.domain.user.User;
 import kr.hs.bssm.weet.global.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -17,12 +16,12 @@ public class JwtProvider {
 
     private final JwtProperties jwtProperties;
 
-    public String accessToken(User user) {
-        return createToken(user.getEmail(), user.getAuthority(), jwtProperties.accessTokenExp(), "access_token");
+    public String accessToken(String email, Authority authority) {
+        return createToken(email, authority, jwtProperties.accessTokenExp(), "access_token");
     }
 
-    public String refreshToken(User user) {
-        return createToken(user.getEmail(), user.getAuthority(), jwtProperties.refreshTokenExp(), "refresh_token");
+    public String refreshToken(String email, Authority authority) {
+        return createToken(email, authority, jwtProperties.refreshTokenExp(), "refresh_token");
     }
 
     private String createToken(String email, Authority authority, Long exp, String type) {
