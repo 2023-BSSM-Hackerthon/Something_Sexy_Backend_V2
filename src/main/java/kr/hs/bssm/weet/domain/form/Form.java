@@ -1,6 +1,7 @@
 package kr.hs.bssm.weet.domain.form;
 
 import jakarta.persistence.*;
+import kr.hs.bssm.weet.presentation.form.dto.request.FormRequestDto;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -38,4 +39,12 @@ public class Form {
 
     @Column(nullable = false)
     private Boolean isAccepted;
+
+    public Form update(FormRequestDto dto) {
+        this.title = dto.title();
+        this.content = dto.content();
+        this.date = dto.dates();
+
+        return this;
+    }
 }
