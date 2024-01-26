@@ -3,6 +3,7 @@ package kr.hs.bssm.weet.presentation.form;
 import kr.hs.bssm.weet.application.form.FormService;
 import kr.hs.bssm.weet.domain.form.Form;
 import kr.hs.bssm.weet.global.annotation.LoginRequired;
+import kr.hs.bssm.weet.global.annotation.TeacherOnly;
 import kr.hs.bssm.weet.presentation.form.dto.request.FormRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,12 @@ public class FormController {
     @PostMapping
     public Long request(@RequestBody FormRequestDto dto) {
         return formService.create(dto);
+    }
+
+    @TeacherOnly
+    @PatchMapping("/{id}")
+    public Long acceptForm(@PathVariable Long id) {
+        return formService.accept(id);
     }
 
     @LoginRequired

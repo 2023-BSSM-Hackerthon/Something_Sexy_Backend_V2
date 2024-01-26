@@ -47,4 +47,10 @@ public class Form {
 
         return this;
     }
+
+    public Form accept() {
+        this.isAccepted = true;
+
+        return this;
+    }
 }

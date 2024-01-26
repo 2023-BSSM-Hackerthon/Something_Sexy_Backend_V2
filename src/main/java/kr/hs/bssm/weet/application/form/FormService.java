@@ -44,6 +44,18 @@ public class FormService {
     }
 
     @Transactional
+    public Long accept(Long id) {
+        Form form = formRepository.findById(id)
+                .orElseThrow(() -> new WeetException(ErrorCode.NOT_FOUND_FORM));
+
+        if (form.getIsAccepted()) {
+            throw new WeetException(ErrorCode.ALREADY_ACCEPTED_FORM);
+        }
+
+        return formRepository.save(form.accept()).getId();
+    }
+
+    @Transactional
     public Long delete(Long id) {
         formRepository.deleteById(id);
         return id;
