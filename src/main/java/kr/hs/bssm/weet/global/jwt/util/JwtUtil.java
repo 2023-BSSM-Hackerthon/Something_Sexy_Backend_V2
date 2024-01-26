@@ -9,6 +9,8 @@ import kr.hs.bssm.weet.global.jwt.util.dto.TokenInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 @RequiredArgsConstructor
 public class JwtUtil {
@@ -50,5 +52,11 @@ public class JwtUtil {
                 .getHeader()
                 .get("type")
                 .toString();
+    }
+
+    public boolean isExpired(String token) {
+        return getClaims(token)
+                .getExpiration()
+                .before(new Date());
     }
 }
