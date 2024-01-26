@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface FormRepository extends JpaRepository<Form, Long> {
     List<Form> findByUserId(Long userId);
+
+    List<Form> findAllOrderByIdDesc();
 }

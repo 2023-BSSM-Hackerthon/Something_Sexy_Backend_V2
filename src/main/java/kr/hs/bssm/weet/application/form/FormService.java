@@ -6,6 +6,7 @@ import kr.hs.bssm.weet.domain.form.Form;
 import kr.hs.bssm.weet.domain.form.repository.FormRepository;
 import kr.hs.bssm.weet.global.error.exception.ErrorCode;
 import kr.hs.bssm.weet.global.error.exception.WeetException;
+import kr.hs.bssm.weet.presentation.form.dto.request.FormRejectRequestDto;
 import kr.hs.bssm.weet.presentation.form.dto.request.FormRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -62,9 +63,27 @@ public class FormService {
         return formRepository.save(form.accept(date)).getId();
     }
 
+    @Transactional(readOnly = true)
+    public Long reject(Long id, FormRejectRequestDto dto) {
+        Form form = formRepository.findById(id)
+                .orElseThrow(() -> new WeetException(ErrorCode.NOT_FOUND_FORM));
+
+        if (form.getIsAccepted()) {
+            throw new WeetException(ErrorCode.ALREADY_ACCEPTED_FORM);
+        }
+
+        mailService.toStudentWhenReject(form, dto.reason());
+
+        return id;
+    }
+
     @Transactional
     public Long delete(Long id) {
         formRepository.deleteById(id);
         return id;
+    }
+
+    public List<Form> findAll() {
+        return formRepository.findAllOrderByIdDesc();
     }
 }

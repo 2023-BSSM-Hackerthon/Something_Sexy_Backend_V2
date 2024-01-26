@@ -5,6 +5,7 @@ import kr.hs.bssm.weet.domain.form.Form;
 import kr.hs.bssm.weet.global.annotation.LoginRequired;
 import kr.hs.bssm.weet.global.annotation.TeacherOnly;
 import kr.hs.bssm.weet.presentation.form.dto.request.FormAcceptRequestDto;
+import kr.hs.bssm.weet.presentation.form.dto.request.FormRejectRequestDto;
 import kr.hs.bssm.weet.presentation.form.dto.request.FormRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,12 @@ public class FormController {
     }
 
     @LoginRequired
+    @GetMapping
+    public List<Form> findAll() {
+        return formService.findAll();
+    }
+
+    @LoginRequired
     @PostMapping
     public Long request(@RequestBody FormRequestDto dto) {
         return formService.create(dto);
@@ -35,6 +42,13 @@ public class FormController {
     public Long acceptForm(@PathVariable Long id,
                            @RequestBody FormAcceptRequestDto dto) {
         return formService.accept(id, dto.decidedDate());
+    }
+
+    @TeacherOnly
+    @PatchMapping("/reject/{id}")
+    public Long rejectForm(@PathVariable Long id,
+                           @RequestBody FormRejectRequestDto dto) {
+        return formService.reject(id, dto);
     }
 
     @LoginRequired
