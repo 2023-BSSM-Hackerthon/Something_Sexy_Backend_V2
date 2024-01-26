@@ -11,6 +11,9 @@ public enum ErrorCode {
     NO_PERMISSION(403, "AUTH-403-1", "No permission"),
     ONLY_ADMIN(403, "AUTH-403-2", "Only admin"),
 
+    // user
+    NOT_FOUND_USER(404, "USER-404-1", "Not found user"),
+
     // BSM OAuth
     NOT_FOUND_CODE(401, "BSM-401-1", "BSM OAuth Authorization Code not found"),
 

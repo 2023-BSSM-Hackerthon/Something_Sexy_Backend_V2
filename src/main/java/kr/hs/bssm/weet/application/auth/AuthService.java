@@ -1,10 +1,13 @@
 package kr.hs.bssm.weet.application.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.bssm.weet.application.user.UserService;
 import kr.hs.bssm.weet.domain.user.User;
+import kr.hs.bssm.weet.global.context.ContextHolder;
 import kr.hs.bssm.weet.global.error.exception.ErrorCode;
 import kr.hs.bssm.weet.global.error.exception.WeetException;
 import kr.hs.bssm.weet.global.jwt.util.JwtProvider;
+import kr.hs.bssm.weet.global.jwt.util.JwtUtil;
 import kr.hs.bssm.weet.presentation.auth.dto.response.LoginResponseDto;
 import kr.hs.bssm.weet.presentation.auth.dto.response.TokenRefreshResponseDto;
 import leehj050211.bsmOauth.BsmOauth;
@@ -41,7 +44,9 @@ public class AuthService {
         return new LoginResponseDto(accessToken, refreshToken);
     }
 
-    public TokenRefreshResponseDto reissueAccessToken(String refreshToken) {
+    public TokenRefreshResponseDto reissueAccessToken(HttpServletRequest request) {
+        String refreshToken = refreshTokenService.resolveRefreshToken(request);
+
         if (refreshToken == null) {
             throw new WeetException(ErrorCode.NOT_FOUND_TOKEN);
         }
@@ -55,5 +60,15 @@ public class AuthService {
                         .updateAccessToken(refreshToken)
                         .getAccessToken()
         );
+    }
+
+    public Long logout() {
+        Long userId = userService.findByEmail(ContextHolder.getAuthentication().getEmail())
+                .orElseThrow(() -> new WeetException(ErrorCode.NOT_FOUND_USER))
+                .getId();
+
+        refreshTokenService.deleteToken(userId);
+
+        return userId;
     }
 }

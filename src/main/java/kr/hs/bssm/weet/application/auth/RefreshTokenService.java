@@ -1,5 +1,6 @@
 package kr.hs.bssm.weet.application.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.bssm.weet.domain.auth.RefreshToken;
 import kr.hs.bssm.weet.domain.auth.repository.RefreshTokenRepository;
 import kr.hs.bssm.weet.global.error.exception.ErrorCode;
@@ -54,5 +55,13 @@ public class RefreshTokenService {
         }
 
         return true;
+    }
+
+    public void deleteToken(Long userId) {
+        refreshTokenRepository.deleteById(userId);
+    }
+
+    public String resolveRefreshToken(HttpServletRequest request) {
+        return jwtUtil.resolveRefreshToken(request);
     }
 }

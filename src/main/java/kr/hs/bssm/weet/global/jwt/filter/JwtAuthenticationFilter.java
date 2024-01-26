@@ -24,7 +24,7 @@ public class JwtAuthenticationFilter implements Filter {
         ContextHolder.setAuthentication(null);
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        String jwt = jwtUtil.resolveToken(httpServletRequest);
+        String jwt = jwtUtil.resolveAccessToken(httpServletRequest);
 
         if ((jwt != null) && (jwtUtil.getTokenType(jwt).equals(ACCESS_TOKEN.getValue()))) {
             TokenInfo tokenInfo = jwtUtil.extractTokenInfo(jwt);

@@ -17,8 +17,18 @@ public class JwtUtil {
 
     private final JwtProperties jwtProperties;
 
-    public String resolveToken(HttpServletRequest request) {
+    public String resolveAccessToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
+
+        if (token == null || !token.startsWith("Bearer ")) {
+            return null;
+        }
+
+        return token.split(" ")[1].trim();
+    }
+
+    public String resolveRefreshToken(HttpServletRequest request) {
+        String token = request.getHeader("Refresh");
 
         if (token == null || !token.startsWith("Bearer ")) {
             return null;
