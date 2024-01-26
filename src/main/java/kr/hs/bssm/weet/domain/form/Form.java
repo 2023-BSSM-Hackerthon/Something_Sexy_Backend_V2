@@ -35,4 +35,7 @@ public class Form {
 
     @Column(nullable = false)
     private Long userId;
+
+    @Column(nullable = false)
+    private Boolean isAccepted;
 }

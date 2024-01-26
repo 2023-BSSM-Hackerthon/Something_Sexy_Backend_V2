@@ -16,6 +16,7 @@ public record FormRequestDto(
                 .content(content)
                 .date(dates)
                 .userId(userId)
+                .isAccepted(false)
                 .build();
     }
 }
