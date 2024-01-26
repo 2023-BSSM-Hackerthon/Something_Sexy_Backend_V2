@@ -1,8 +1,8 @@
 package kr.hs.bssm.weet.application.user;
 
-import kr.hs.bssm.weet.domain.user.Authority;
 import kr.hs.bssm.weet.domain.user.User;
 import kr.hs.bssm.weet.domain.user.repository.UserRepository;
+import kr.hs.bssm.weet.global.context.ContextHolder;
 import kr.hs.bssm.weet.global.error.exception.ErrorCode;
 import kr.hs.bssm.weet.global.error.exception.WeetException;
 import leehj050211.bsmOauth.dto.resource.BsmUserResource;
@@ -18,6 +18,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    @Transactional(readOnly = true)
+    public User findCurrentUser() {
+        return userRepository.findByEmail(ContextHolder.getAuthentication().getEmail())
+                .orElseThrow(() -> new WeetException(ErrorCode.NOT_FOUND_USER));
+    }
 
     @Transactional(readOnly = true)
     public Optional<User> findByEmail(String email) {
