@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 public enum ErrorCode {
 
     // auth
-    NO_PERMISSION(403, "AUTH-403-1", "No permission"),
-    ONLY_TEACHER(403, "AUTH-403-2", "Only teacher"),
+    NO_PERMISSION(401, "AUTH-401-1", "Login required"),
+    ONLY_TEACHER(403, "AUTH-403-1", "Only teacher"),
 
     // user
     NOT_FOUND_USER(404, "USER-404-1", "Not found user"),
