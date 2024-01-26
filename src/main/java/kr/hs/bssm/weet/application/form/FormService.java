@@ -1,5 +1,6 @@
 package kr.hs.bssm.weet.application.form;
 
+import kr.hs.bssm.weet.application.mail.MailService;
 import kr.hs.bssm.weet.application.user.UserService;
 import kr.hs.bssm.weet.domain.form.Form;
 import kr.hs.bssm.weet.domain.form.repository.FormRepository;
@@ -19,6 +20,7 @@ public class FormService {
 
     private final FormRepository formRepository;
     private final UserService userService;
+    private final MailService mailService;
 
     @Transactional(readOnly = true)
     public List<Form> findMyForm() {
@@ -29,6 +31,8 @@ public class FormService {
     @Transactional
     public Long create(FormRequestDto dto) {
         Long userId = userService.findCurrentUser().getId();
+        userService.findAllTeacher().forEach(teacher ->
+                mailService.toTeacher(userService.findCurrentUser(), teacher));
         return formRepository.save(dto.toEntity(userId)).getId();
     }
 
@@ -52,6 +56,8 @@ public class FormService {
         if (form.getIsAccepted()) {
             throw new WeetException(ErrorCode.ALREADY_ACCEPTED_FORM);
         }
+
+        mailService.toStudentWhenApprove(form, date);
 
         return formRepository.save(form.accept(date)).getId();
     }

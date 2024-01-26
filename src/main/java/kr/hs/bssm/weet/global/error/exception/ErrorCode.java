@@ -27,7 +27,8 @@ public enum ErrorCode {
     NOT_FOUND_TOKEN(401, "JWT-401-3", "Not found jwt"),
 
     // server
-    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal server error");
+    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal server error"),
+    EMAIL_SEND_ERROR(500, "SERVER-500-2", "Email send error");
 
     private final int status;
     private final String code;

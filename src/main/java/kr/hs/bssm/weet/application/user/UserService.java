@@ -1,5 +1,6 @@
 package kr.hs.bssm.weet.application.user;
 
+import kr.hs.bssm.weet.domain.user.Authority;
 import kr.hs.bssm.weet.domain.user.User;
 import kr.hs.bssm.weet.domain.user.repository.UserRepository;
 import kr.hs.bssm.weet.global.context.ContextHolder;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,8 +28,19 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new WeetException(ErrorCode.NOT_FOUND_USER));
+    }
+
+    @Transactional(readOnly = true)
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> findAllTeacher() {
+        return userRepository.findByAuthority(Authority.TEACHER);
     }
 
     @Transactional
