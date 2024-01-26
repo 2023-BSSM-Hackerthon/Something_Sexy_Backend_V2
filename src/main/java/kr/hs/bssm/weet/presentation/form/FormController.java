@@ -31,7 +31,7 @@ public class FormController {
     }
 
     @TeacherOnly
-    @PatchMapping("/{id}")
+    @PatchMapping("/accept/{id}")
     public Long acceptForm(@PathVariable Long id,
                            @RequestBody FormAcceptRequestDto dto) {
         return formService.accept(id, dto.decidedDate());
