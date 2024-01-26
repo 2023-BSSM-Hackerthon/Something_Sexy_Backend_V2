@@ -27,4 +27,10 @@ public class FormController {
     public Long request(@RequestBody FormRequestDto dto) {
         return formService.create(dto);
     }
+
+    @LoginRequired
+    @DeleteMapping("/{id}")
+    public Long deleteForm(@PathVariable Long id) {
+        return formService.delete(id);
+    }
 }

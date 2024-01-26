@@ -28,4 +28,9 @@ public class FormService {
         Long userId = userService.findCurrentUser().getId();
         return formRepository.save(dto.toEntity(userId)).getId();
     }
+
+    public Long delete(Long id) {
+        formRepository.deleteById(id);
+        return id;
+    }
 }
