@@ -25,7 +25,7 @@ public class Form {
     @Column(nullable = false, length = 3000)
     private String content;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "form_date",
             joinColumns = @JoinColumn(name = "form_id")
