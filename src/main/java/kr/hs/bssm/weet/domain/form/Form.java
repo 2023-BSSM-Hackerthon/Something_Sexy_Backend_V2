@@ -40,6 +40,9 @@ public class Form {
     @Column(nullable = false)
     private Boolean isAccepted;
 
+    @Column
+    private Date decidedDate;
+
     public Form update(FormRequestDto dto) {
         this.title = dto.title();
         this.content = dto.content();
@@ -48,8 +51,9 @@ public class Form {
         return this;
     }
 
-    public Form accept() {
+    public Form accept(Date date) {
         this.isAccepted = true;
+        this.decidedDate = date;
 
         return this;
     }

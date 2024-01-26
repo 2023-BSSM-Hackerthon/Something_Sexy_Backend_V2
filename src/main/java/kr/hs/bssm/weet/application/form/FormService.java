@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -44,7 +45,7 @@ public class FormService {
     }
 
     @Transactional
-    public Long accept(Long id) {
+    public Long accept(Long id, Date date) {
         Form form = formRepository.findById(id)
                 .orElseThrow(() -> new WeetException(ErrorCode.NOT_FOUND_FORM));
 
@@ -52,7 +53,7 @@ public class FormService {
             throw new WeetException(ErrorCode.ALREADY_ACCEPTED_FORM);
         }
 
-        return formRepository.save(form.accept()).getId();
+        return formRepository.save(form.accept(date)).getId();
     }
 
     @Transactional
