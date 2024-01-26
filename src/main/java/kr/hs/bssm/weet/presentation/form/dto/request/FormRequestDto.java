@@ -10,11 +10,12 @@ public record FormRequestDto(
         String content,
         List<Date> dates
 ) {
-    public Form toEntity() {
+    public Form toEntity(Long userId) {
         return Form.builder()
                 .title(title)
                 .content(content)
                 .date(dates)
+                .userId(userId)
                 .build();
     }
 }
