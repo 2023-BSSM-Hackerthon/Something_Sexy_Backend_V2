@@ -8,5 +8,5 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @LoginRequired
-public @interface AdminOnly {
+public @interface TeacherOnly {
 }

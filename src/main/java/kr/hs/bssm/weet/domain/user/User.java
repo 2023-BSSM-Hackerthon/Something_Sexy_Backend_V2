@@ -24,13 +24,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    @Column(nullable = false)
+    @Column
     private Integer grade;
 
-    @Column(nullable = false)
+    @Column
     private Integer classNo;
 
-    @Column(nullable = false)
+    @Column
     private Integer number;
 
     public static User createStudent(BsmUserResource resource) {
@@ -42,6 +42,18 @@ public class User {
                 .grade(resource.getStudent().getGrade())
                 .classNo(resource.getStudent().getClassNo())
                 .number(resource.getStudent().getStudentNo())
+                .build();
+    }
+
+    public static User createTeacher(BsmUserResource resource) {
+        return User.builder()
+                .id(resource.getUserCode())
+                .name(resource.getTeacher().getName())
+                .email(resource.getEmail())
+                .authority(Authority.TEACHER)
+                .grade(null)
+                .classNo(null)
+                .number(null)
                 .build();
     }
 }

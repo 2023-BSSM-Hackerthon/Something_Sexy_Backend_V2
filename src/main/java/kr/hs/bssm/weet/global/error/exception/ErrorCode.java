@@ -9,7 +9,7 @@ public enum ErrorCode {
 
     // auth
     NO_PERMISSION(403, "AUTH-403-1", "No permission"),
-    ONLY_ADMIN(403, "AUTH-403-2", "Only admin"),
+    ONLY_TEACHER(403, "AUTH-403-2", "Only teacher"),
 
     // user
     NOT_FOUND_USER(404, "USER-404-1", "Not found user"),

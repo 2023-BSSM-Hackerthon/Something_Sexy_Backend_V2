@@ -3,7 +3,7 @@ package kr.hs.bssm.weet.global.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.hs.bssm.weet.domain.user.Authority;
-import kr.hs.bssm.weet.global.annotation.AdminOnly;
+import kr.hs.bssm.weet.global.annotation.TeacherOnly;
 import kr.hs.bssm.weet.global.annotation.LoginRequired;
 import kr.hs.bssm.weet.global.context.Authentication;
 import kr.hs.bssm.weet.global.context.ContextHolder;
@@ -28,8 +28,8 @@ public class AuthInterceptor implements HandlerInterceptor {
                 throw new WeetException(ErrorCode.NO_PERMISSION);
             }
 
-        if (checkAdminOnly(handler) && (authentication.getAuthority() != Authority.ADMIN)) {
-                    throw new WeetException(ErrorCode.ONLY_ADMIN);
+        if (checkTeacherOnly(handler) && (authentication.getAuthority() != Authority.TEACHER)) {
+                    throw new WeetException(ErrorCode.ONLY_TEACHER);
             }
         }
 
@@ -47,11 +47,11 @@ public class AuthInterceptor implements HandlerInterceptor {
         return false;
     }
 
-    private boolean checkAdminOnly(Object handler) {
+    private boolean checkTeacherOnly(Object handler) {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
-        if (handlerMethod.getMethodAnnotation(AdminOnly.class) != null
-                || handlerMethod.getBeanType().getAnnotation(AdminOnly.class) != null) {
+        if (handlerMethod.getMethodAnnotation(TeacherOnly.class) != null
+                || handlerMethod.getBeanType().getAnnotation(TeacherOnly.class) != null) {
             return true;
         }
 
