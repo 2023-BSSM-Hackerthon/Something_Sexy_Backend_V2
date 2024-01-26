@@ -1,7 +1,7 @@
 package kr.hs.bssm.weet.presentation.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
 import kr.hs.bssm.weet.application.auth.AuthService;
-import kr.hs.bssm.weet.presentation.auth.dto.request.TokenRefreshRequestDto;
 import kr.hs.bssm.weet.presentation.auth.dto.response.LoginResponseDto;
 import kr.hs.bssm.weet.presentation.auth.dto.response.TokenRefreshResponseDto;
 import leehj050211.bsmOauth.exception.BsmOAuthCodeNotFoundException;
@@ -25,7 +25,7 @@ public class AuthController {
     }
 
     @PatchMapping("/refresh")
-    public TokenRefreshResponseDto reissueAccessToken(@RequestBody TokenRefreshRequestDto dto) {
-        return authService.reissueAccessToken(dto);
+    public TokenRefreshResponseDto reissueAccessToken(HttpServletRequest request) {
+        return authService.reissueAccessToken(request.getHeader("refresh"));
     }
 }

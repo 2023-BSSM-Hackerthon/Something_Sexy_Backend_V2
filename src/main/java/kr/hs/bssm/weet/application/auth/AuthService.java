@@ -2,8 +2,9 @@ package kr.hs.bssm.weet.application.auth;
 
 import kr.hs.bssm.weet.application.user.UserService;
 import kr.hs.bssm.weet.domain.user.User;
+import kr.hs.bssm.weet.global.error.exception.ErrorCode;
+import kr.hs.bssm.weet.global.error.exception.WeetException;
 import kr.hs.bssm.weet.global.jwt.util.JwtProvider;
-import kr.hs.bssm.weet.presentation.auth.dto.request.TokenRefreshRequestDto;
 import kr.hs.bssm.weet.presentation.auth.dto.response.LoginResponseDto;
 import kr.hs.bssm.weet.presentation.auth.dto.response.TokenRefreshResponseDto;
 import leehj050211.bsmOauth.BsmOauth;
@@ -40,8 +41,10 @@ public class AuthService {
         return new LoginResponseDto(accessToken, refreshToken);
     }
 
-    public TokenRefreshResponseDto reissueAccessToken(TokenRefreshRequestDto dto) {
-        String refreshToken = dto.refreshToken();
+    public TokenRefreshResponseDto reissueAccessToken(String refreshToken) {
+        if (refreshToken == null) {
+            throw new WeetException(ErrorCode.NOT_FOUND_TOKEN);
+        }
 
         if (!refreshTokenService.isValidRefreshToken(refreshToken)) {
             return null;
