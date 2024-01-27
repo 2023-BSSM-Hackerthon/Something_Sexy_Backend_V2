@@ -26,9 +26,21 @@ public class FormController {
     }
 
     @TeacherOnly
-    @GetMapping
+    @GetMapping("/all")
     public List<Form> findAll() {
         return formService.findAll();
+    }
+
+    @TeacherOnly
+    @GetMapping("/accepted")
+    public List<Form> findByAccepted() {
+        return formService.findByAccepted(true);
+    }
+
+    @TeacherOnly
+    @GetMapping("/not-accepted")
+    public List<Form> findByNotAccepted() {
+        return formService.findByAccepted(false);
     }
 
     @LoginRequired

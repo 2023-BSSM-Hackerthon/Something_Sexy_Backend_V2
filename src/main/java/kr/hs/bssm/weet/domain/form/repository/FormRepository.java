@@ -9,4 +9,6 @@ public interface FormRepository extends JpaRepository<Form, Long> {
     List<Form> findByUserId(Long userId);
 
     List<Form> findAllOrderByIdDesc();
+
+    List<Form> findByIsAccepted(boolean isAccepted);
 }

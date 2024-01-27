@@ -34,6 +34,12 @@ public class FormService {
         return formRepository.findAllOrderByIdDesc();
     }
 
+
+    @Transactional(readOnly = true)
+    public List<Form> findByAccepted(boolean status) {
+        return formRepository.findByIsAccepted(status);
+    }
+
     @Transactional
     public Long create(FormRequestDto dto) {
         Long userId = userService.findCurrentUser().getId();
