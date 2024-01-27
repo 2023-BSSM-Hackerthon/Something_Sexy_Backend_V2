@@ -29,6 +29,11 @@ public class FormService {
         return formRepository.findByUserId(userId);
     }
 
+    @Transactional(readOnly = true)
+    public List<Form> findAll() {
+        return formRepository.findAllOrderByIdDesc();
+    }
+
     @Transactional
     public Long create(FormRequestDto dto) {
         Long userId = userService.findCurrentUser().getId();
@@ -81,9 +86,5 @@ public class FormService {
     public Long delete(Long id) {
         formRepository.deleteById(id);
         return id;
-    }
-
-    public List<Form> findAll() {
-        return formRepository.findAllOrderByIdDesc();
     }
 }

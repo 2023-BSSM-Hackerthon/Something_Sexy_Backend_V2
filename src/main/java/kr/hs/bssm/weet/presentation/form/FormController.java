@@ -25,7 +25,7 @@ public class FormController {
         return formService.findMyForm();
     }
 
-    @LoginRequired
+    @TeacherOnly
     @GetMapping
     public List<Form> findAll() {
         return formService.findAll();
