@@ -18,6 +18,9 @@ public enum ErrorCode {
     NOT_FOUND_FORM(404, "FORM-404-1", "Not found form"),
     ALREADY_ACCEPTED_FORM(412, "FORM-412-1", "Already accepted form"),
 
+    // result
+    NOT_FOUND_RESULT(404, "RESULT-404-1", "Not found result"),
+
     // BSM OAuth
     NOT_FOUND_CODE(401, "BSM-401-1", "BSM OAuth Authorization Code not found"),
 
