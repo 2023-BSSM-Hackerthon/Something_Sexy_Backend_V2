@@ -42,4 +42,10 @@ public class ResultController {
                        @RequestBody ResultUpdateRequestDto dto) {
         return resultService.update(id, dto);
     }
+
+    @TeacherOnly
+    @DeleteMapping("/{id}")
+    public Long delete(@PathVariable Long id) {
+        return resultService.delete(id);
+    }
 }

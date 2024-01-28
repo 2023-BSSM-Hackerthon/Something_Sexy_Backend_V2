@@ -39,4 +39,9 @@ public class ResultService {
                 .orElseThrow(() -> new WeetException(ErrorCode.NOT_FOUND_RESULT));
         return resultRepository.save(result.update(dto)).getId();
     }
+
+    public Long delete(Long id) {
+        resultRepository.deleteById(id);
+        return id;
+    }
 }
