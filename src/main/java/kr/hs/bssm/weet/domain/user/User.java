@@ -1,6 +1,7 @@
 package kr.hs.bssm.weet.domain.user;
 
 import jakarta.persistence.*;
+import kr.hs.bssm.weet.global.entity.BaseTimeEntity;
 import leehj050211.bsmOauth.dto.resource.BsmUserResource;
 import lombok.*;
 
@@ -9,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @Getter
-public class User {
+public class User extends BaseTimeEntity {
 
     @Id
     private Long id;

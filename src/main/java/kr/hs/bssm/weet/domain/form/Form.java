@@ -1,6 +1,7 @@
 package kr.hs.bssm.weet.domain.form;
 
 import jakarta.persistence.*;
+import kr.hs.bssm.weet.global.entity.BaseTimeEntity;
 import kr.hs.bssm.weet.presentation.form.dto.request.FormRequestDto;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class Form {
+public class Form extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
