@@ -16,6 +16,11 @@ public class ResultService {
     private final ResultRepository resultRepository;
 
     @Transactional(readOnly = true)
+    public Result findByForm(Long formId) {
+        return resultRepository.findByFormId(formId);
+    }
+
+    @Transactional(readOnly = true)
     public List<Result> findAll() {
         return resultRepository.findAll();
     }

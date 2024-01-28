@@ -2,6 +2,7 @@ package kr.hs.bssm.weet.presentation.result;
 
 import kr.hs.bssm.weet.application.result.ResultService;
 import kr.hs.bssm.weet.domain.result.Result;
+import kr.hs.bssm.weet.global.annotation.LoginRequired;
 import kr.hs.bssm.weet.global.annotation.TeacherOnly;
 import kr.hs.bssm.weet.presentation.result.dto.ResultCreateRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,12 @@ public class ResultController {
     @GetMapping
     public List<Result> findAll() {
         return resultService.findAll();
+    }
+
+    @LoginRequired
+    @GetMapping("/form/{formId}")
+    public Result findByForm(@PathVariable Long formId) {
+        return resultService.findByForm(formId);
     }
 
     @TeacherOnly
