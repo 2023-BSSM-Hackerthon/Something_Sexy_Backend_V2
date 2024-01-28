@@ -1,13 +1,13 @@
 package kr.hs.bssm.weet.presentation.result;
 
 import kr.hs.bssm.weet.application.result.ResultService;
+import kr.hs.bssm.weet.domain.result.Result;
 import kr.hs.bssm.weet.global.annotation.TeacherOnly;
 import kr.hs.bssm.weet.presentation.result.dto.ResultCreateRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/result")
@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ResultController {
 
     private final ResultService resultService;
+
+    @TeacherOnly
+    @GetMapping
+    public List<Result> findAll() {
+        return resultService.findAll();
+    }
 
     @TeacherOnly
     @PostMapping
