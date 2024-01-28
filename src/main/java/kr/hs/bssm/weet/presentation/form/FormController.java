@@ -20,13 +20,13 @@ public class FormController {
     private final FormService formService;
 
     @LoginRequired
-    @GetMapping
-    public List<Form> findMyForm() {
-        return formService.findMyForm();
+    @GetMapping("/user/{userId}")
+    public List<Form> findMyForm(@PathVariable Long userId) {
+        return formService.findMyForm(userId);
     }
 
     @TeacherOnly
-    @GetMapping("/all")
+    @GetMapping
     public List<Form> findAll() {
         return formService.findAll();
     }

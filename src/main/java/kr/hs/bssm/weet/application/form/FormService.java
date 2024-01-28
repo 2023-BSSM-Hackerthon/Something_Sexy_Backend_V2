@@ -24,8 +24,7 @@ public class FormService {
     private final MailService mailService;
 
     @Transactional(readOnly = true)
-    public List<Form> findMyForm() {
-        Long userId = userService.findCurrentUser().getId();
+    public List<Form> findMyForm(Long userId) {
         return formRepository.findByUserId(userId);
     }
 
